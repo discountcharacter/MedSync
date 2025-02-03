@@ -1,9 +1,11 @@
-const mongoose = require('mongoose');
+// backend/models/User.js
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  prescriptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Prescription' }],
+  username: String,
+  password: String,
 });
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;  // Default export
