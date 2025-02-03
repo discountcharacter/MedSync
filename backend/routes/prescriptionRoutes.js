@@ -1,6 +1,6 @@
 // backend/routes/prescriptionRoutes.js
 import express from 'express';
-import prescriptionController from '../controllers/prescriptionController.js';
+import { getPrescriptions, uploadPrescription } from '../controllers/prescriptionController.js';
 import authMiddleware from '../middleware/auth.js';
 import multer from 'multer';
 
