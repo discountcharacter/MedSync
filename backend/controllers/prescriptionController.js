@@ -1,8 +1,8 @@
-const Prescription = require('../models/Prescription');
-const Tesseract = require('tesseract.js');
+import Prescription from '../models/Prescription.js';
+import Tesseract from 'tesseract.js';
 
 // Get all prescriptions for the authenticated user
-exports.getPrescriptions = async (req, res) => {
+export const getPrescriptions = async (req, res) => {
   try {
     const prescriptions = await Prescription.find({ userId: req.userId });
     res.json(prescriptions);
@@ -12,7 +12,7 @@ exports.getPrescriptions = async (req, res) => {
 };
 
 // Upload and process a prescription
-exports.uploadPrescription = async (req, res) => {
+export const uploadPrescription = async (req, res) => {
   try {
     const { userId } = req;
     const imagePath = req.file.path;
@@ -20,12 +20,12 @@ exports.uploadPrescription = async (req, res) => {
     // Process the image using OCR
     const { data: { text } } = await Tesseract.recognize(imagePath, 'eng');
 
-    // Save the parsed data to the database
+    // Here you need to extract data from the OCR text. For now, you're assigning placeholders.
     const prescription = new Prescription({
       doctorName: 'Parsed Doctor Name', // Replace with actual parsed data
       patientName: 'Parsed Patient Name', // Replace with actual parsed data
       medicines: ['Parsed Medicines'], // Replace with actual parsed data
-      notes: 'Parsed Notes', // Replace with actual parsed data
+      doctorNotes: 'Parsed Notes', // Replace with actual parsed data
       userId,
     });
     await prescription.save();
