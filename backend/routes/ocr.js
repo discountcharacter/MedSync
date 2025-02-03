@@ -1,30 +1,40 @@
-const express = require('express');
-const multer = require('multer');
-const Tesseract = require('tesseract.js');
-const Prescription = require('../models/Prescription');
+import express from 'express';
+import multer from 'multer';
+import Tesseract from 'tesseract.js';
+import Prescription from '../models/Prescription.js';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
 
+// Upload and process OCR
 router.post('/upload', upload.single('prescription'), async (req, res) => {
   const { userId } = req.body;
   const imagePath = req.file.path;
 
-  Tesseract.recognize(imagePath, 'eng')
-    .then(({ data: { text } }) => {
-      // Parse text and save to database
-      const prescription = new Prescription({
-        doctorName: 'Parsed Doctor Name',
-        patientName: 'Parsed Patient Name',
-        date: new Date(),
-        medicines: ['Parsed Medicines'],
-        doctorNotes: 'Parsed Notes',
-        userId,
-      });
-      prescription.save();
-      res.send('Prescription uploaded and processed');
-    })
-    .catch((err) => res.status(500).send('OCR processing failed'));
+  try {
+    const { data: { text } } = await Tesseract.recognize(imagePath, 'eng');
+    
+    // Example parsing logic - adapt this to parse actual OCR text
+    const parsedDoctorName = 'Parsed Doctor Name'; // Replace with actual parsed data from OCR
+    const parsedPatientName = 'Parsed Patient Name'; // Replace with actual parsed data from OCR
+    const parsedMedicines = ['Parsed Medicine 1', 'Parsed Medicine 2']; // Example medicines list
+    const parsedDoctorNotes = 'Parsed Notes'; // Replace with actual parsed data
+
+    // Save to the database
+    const prescription = new Prescription({
+      doctorName: parsedDoctorName,
+      patientName: parsedPatientName,
+      date: new Date(),
+      medicines: parsedMedicines,
+      doctorNotes: parsedDoctorNotes,
+      userId,
+    });
+
+    await prescription.save();
+    res.send('Prescription uploaded and processed');
+  } catch (err) {
+    res.status(500).send('OCR processing failed');
+  }
 });
 
-module.exports = router;
+export default router;
