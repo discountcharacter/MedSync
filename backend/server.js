@@ -1,10 +1,10 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const prescriptionRoutes = require('./routes/prescriptionRoutes');
-const authRoutes = require('./routes/authRoutes');
-const multer = require('multer');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import prescriptionRoutes from './routes/prescriptionRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import multer from 'multer';
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: 'https://med-sync-seven.vercel.app', // Allow requests from your frontend
+  origin: 'https://med-sync-seven.vercel.app',
   credentials: true,
 }));
 app.use(express.json());
