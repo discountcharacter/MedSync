@@ -4,21 +4,21 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import prescriptionRoutes from './routes/prescriptionRoutes.js';
 import authRoutes from './routes/authRoutes.js';
-import multer from 'multer';
+import ocrRoutes from './routes/ocr.js';
 
-dotenv.config(); // Ensure this is here to load environment variables
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-  origin: 'https://med-sync-seven.vercel.app', // Frontend URL
+  origin: 'https://med-sync-seven.vercel.app', // Your frontend URL
   credentials: true,
 }));
 app.use(express.json());
 
-// MongoDB Connection (Ensure your MongoDB URI is correct)
+// MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -29,6 +29,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Routes
 app.use('/api/prescriptions', prescriptionRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/ocr', ocrRoutes);
 
 // Start the server
 app.listen(PORT, () => {
