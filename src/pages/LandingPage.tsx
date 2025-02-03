@@ -32,7 +32,7 @@ const LandingPage = () => {
       <div className="relative bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
-<div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-[400px]">
+<div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-[400px] lg:h-auto">  <--- Added lg:h-auto
   <img
     className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-full lg:h-full object-cover"
     src="https://plus.unsplash.com/premium_photo-1658506671316-0b293df7c72b?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZG9jdG9yfGVufDB8fDB8fHww"
