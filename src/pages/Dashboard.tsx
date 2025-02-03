@@ -20,7 +20,7 @@ const Dashboard = () => {
     const fetchPrescriptions = async () => {
       try {
         const token = localStorage.getItem('token'); // Assuming you store the JWT token in localStorage
-        const response = await axios.get('/api/prescriptions', {
+        const response = await axios.get('https://medsync-6iom.onrender.com/api/prescriptions', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPrescriptions(response.data);
@@ -44,7 +44,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('token'); // Assuming you store the JWT token in localStorage
-      const response = await axios.post('/api/upload', formData, {
+      const response = await axios.post('https://medsync-6iom.onrender.com/api/upload', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
