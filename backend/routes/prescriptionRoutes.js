@@ -1,4 +1,3 @@
-// backend/routes/prescriptionRoutes.js
 import express from 'express';
 import { getPrescriptions, uploadPrescription } from '../controllers/prescriptionController.js';
 import authMiddleware from '../middleware/auth.js';
@@ -8,9 +7,9 @@ const router = express.Router();
 const upload = multer({ dest: 'uploads/' });  // Middleware for handling file uploads
 
 // GET /api/prescriptions - Get all prescriptions
-router.get('/', authMiddleware, prescriptionController.getPrescriptions);
+router.get('/', authMiddleware, getPrescriptions);
 
 // POST /api/upload - Upload prescription data (with file)
-router.post('/upload', authMiddleware, upload.single('prescription'), prescriptionController.uploadPrescription);
+router.post('/upload', authMiddleware, upload.single('prescription'), uploadPrescription);
 
 export default router;
